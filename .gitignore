@@ -1,0 +1,8 @@
+﻿# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+
+# Packet Tracer autosave/backup
+*.pkt.bak
+Backup/
