@@ -1,0 +1,42 @@
+enable
+configure terminal
+hostname SW3
+no ip domain-lookup
+!
+vlan 10
+ name Staff
+vlan 20
+ name Servers
+vlan 30
+ name Guest
+vlan 99
+ name Management
+ exit
+!
+interface FastEthernet0/1
+ description Trunk-to-SW1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,99
+ exit
+interface FastEthernet0/2
+ description PC-C
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ exit
+interface FastEthernet0/3
+ description PC-D
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ exit
+!
+interface Vlan99
+ ip address 192.168.99.4 255.255.255.0
+ no shutdown
+ exit
+ip default-gateway 192.168.99.1
+!
+end
+copy running-config startup-config
